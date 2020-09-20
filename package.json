@@ -1,0 +1,23 @@
+{
+  "name": "justify_api",
+  "version": "1.0.0",
+  "description": "A simple API that accepts text as input and outputs that text justified (at a length of 80 characters)",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "api",
+    "justify"
+  ],
+  "author": "Taink",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.9.0",
+    "mocha": "^8.1.3"
+  }
+}

@@ -1,0 +1,30 @@
+{
+	"parserOptions": {
+		"ecmaVersion": 6,
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"impliedStrict": true
+		}
+	},
+	"env": {
+		"node": true
+	},
+	"rules": {
+		"semi": "error",
+		"for-direction": "error",
+		"no-dupe-args": "error",
+		"no-dupe-class-members": "error",
+		"no-dupe-keys": "error",
+		"no-extra-parens": "warn",
+		"no-else-return": "warn",
+		"no-empty-function": "warn",
+		"no-undef-init": "error",
+		"no-undefined": "warn",
+		"camelcase": "error",
+		"comma-dangle": ["error", "always"],
+		"brace-style": ["error", "1tbs"],
+		"block-spacing": "error",
+		"eol-last": ["error", "always"],
+		"comma-style": ["error", "last"]
+	}
+}
