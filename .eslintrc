@@ -25,6 +25,7 @@
 		"brace-style": ["error", "1tbs"],
 		"block-spacing": "error",
 		"eol-last": ["error", "always"],
-		"comma-style": ["error", "last"]
+		"comma-style": ["error", "last"],
+		"quote": ["error", "single", { "avoidEscape": true }]
 	}
 }
