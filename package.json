@@ -7,7 +7,7 @@
     "test": "mocha",
     "watch": "tsc -w",
     "build": "tsc -p ./",
-    "start": "nodemon dist/src/index.js"
+    "start": "npm run build && nodemon dist/src/index.js"
   },
   "keywords": [
     "api",
@@ -16,10 +16,16 @@
   "author": "Taink",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1"
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.6"
   },
   "devDependencies": {
     "@types/express": "^4.17.8",
+    "@types/jsonwebtoken": "^8.5.0",
+    "@types/mongoose": "^5.7.36",
     "@types/node": "^14.11.1",
     "eslint": "^7.9.0",
     "mocha": "^8.1.3",
