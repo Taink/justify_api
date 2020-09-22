@@ -1,11 +1,14 @@
+require('dotenv').config();
 import express from 'express';
-import { routes } from './routes/index';
+import routes from './routes/index';
+import initMongoDb from './db/db';
 
+initMongoDb();
 const app = express();
-const PORT = 8000;
+const PORT: number = Number(process.env.PORT) || 8000;
 
 
-app.use('/api/v1', routes);
+app.use('/api', routes);
 
 app.get('/', (req, res) => res.send('Server is running...'));
 

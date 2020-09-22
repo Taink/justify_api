@@ -1,7 +1,9 @@
-import express from "express";
+import express from 'express';
+import { postText } from '../controllers/justify';
+import { postEmail } from '../controllers/token';
 const router = express.Router();
 
-router.post('justify');
-router.post('token');
+router.post('/justify', postText);
+router.post('/token', postEmail);
 
-export { router as routes };
+export default router;
