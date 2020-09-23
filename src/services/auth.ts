@@ -3,7 +3,13 @@ import User from '../db/model/User';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export default async function getAuthToken(email: string): Promise<string> {
+interface UserPayload {
+    user: {
+        id: any,
+    },
+};
+
+export async function generateToken(email: string): Promise<string> {
     if (!EMAIL_REGEX.test(email)) throw 'The provided email has an invalid format!';
     if (User.findOne({ email })) throw 'User already registered!';
 
@@ -22,4 +28,10 @@ export default async function getAuthToken(email: string): Promise<string> {
         return '';
     }
     
+}
+
+export async function authToken(token: string): Promise<boolean> {
+    const payload = <UserPayload>jwt.verify(token, String(process.env.JWT_SECRET));
+
+    return Boolean(User.findById(<string> payload.user.id));
 }
