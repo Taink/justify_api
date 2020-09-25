@@ -1,50 +1,48 @@
-class Line {
-    private words: string[];
-    public static readonly MAX_LINE_LENGTH = 80;
+const MAX_LINE_LENGTH = 80;
 
-    constructor() {
-        this.words = [];
-    }
+function leftJustify(words: string[], diff: number, i: number, j: number) {
+	let res = words[i];
 
-    public getLineLength(): number {
-        return this.words.join('').length;
-    }
+	for (let k = i + 1; k < j; ++k) {
+		res += ' ' + words[k];
+	}
 
-    public getWordsCount(): number {
-        return this.words.length;
-    }
-
-    public appendWord(word: string): void {
-        this.words.push(word);
-    }
-
-    public toString(): string {
-        let charNbrDiff = Line.MAX_LINE_LENGTH - this.getLineLength(),
-            requiredSpaces = this.getWordsCount() - 1,
-            spaces = Math.floor(charNbrDiff / requiredSpaces),
-            extraSpaces = charNbrDiff % requiredSpaces,
-            res = this.words.join(' '.repeat(spaces));
-        for (let i = 0; i < extraSpaces; i++) {
-            res
-        }
-        return res;
-    }
+  	return res;
 }
 
-function makeLines(words: string[]): Line[] {
-    let lines: Line[] = [];
+function middleJustify(words: string[], diff: number, i: number, j: number) {
+	let spacesNeeded = j - i - 1,
+		spaces = diff / spacesNeeded,
+		extraSpaces = diff % spacesNeeded,
+		res = words[i];
 
+	for (let k = i + 1; k < j; ++k) {
+		let spacesToApply = spaces + (extraSpaces-- > 0 ? 1 : 0);
+		res += ' '.repeat(spacesToApply) + words[k];
+	}
 
-
-    return lines;
+	return res;
 }
 
 export function justify(text: string): string {
-    const lines = makeLines(text.split(' '));
+	const words = text.split(' ');
 
-    return lines.join('\n');
+	let i = 0, n = words.length, res = '';
+
+	while(i < n) {
+		let j = i + 1, lineLength = words[i].length, newLine = false;
+
+		while (j < n && (lineLength + words[j].length + (j - i - 1)) < MAX_LINE_LENGTH) {
+			lineLength += words[j++].length;
+		}
+
+		let diff = MAX_LINE_LENGTH - lineLength;
+		let numberOfWords = j - i;
+		if (numberOfWords === 1 || j >= n) res += leftJustify(words, diff, i, j)
+		else res += middleJustify(words, diff, i, j);
+		res+='\n';
+		i = j;
+	}
+
+	return res;
 }
-
-let text = 'fze fhq fzqehf qzheu zqhefuzequf hzqqfiuze hfuizqh efzqeuf huizfuhzqeuifhzqu hfizqehfiu hzqfuizqhefiuh zquhf zqeuifh qizhfuizqehiuf hzquf huizeqh fizqh fuizqh ezqeuifhuizq heh uqhz ehfiuhze hfuzqh huizqeh uihui qzhu hzuqehui huhue zqu uhi uhihui zehuq uh huiiu';
-
-console.log(justify(text));
