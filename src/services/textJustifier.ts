@@ -34,7 +34,7 @@ export function justify(text: string): string {
 	let i = 0, n = words.length, res = '';
 
 	while(i < n) {
-		let j = i + 1, lineLength = words[i].length, newLine = false;
+		let j = i + 1, lineLength = words[i].length;
 
 		while (j < n && (lineLength + words[j].length + (j - i - 1)) < MAX_LINE_LENGTH) {
 			lineLength += words[j++].length;
