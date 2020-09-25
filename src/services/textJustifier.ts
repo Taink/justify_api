@@ -27,6 +27,7 @@ function middleJustify(words: string[], diff: number, i: number, j: number) {
  * "Justifies" a text to a limit of `MAX_LINE_LENGTH` (80) characters per line
  * @param text The provided text to be justified
  * @returns the justified text
+ * @see https://youtu.be/GqXlEbFVTXY for the original author of this algorithm
  */
 export function justify(text: string): string {
 	const words = text.split(' ');
