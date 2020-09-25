@@ -9,6 +9,12 @@ interface UserPayload {
     },
 };
 
+/**
+ * Generates an authentication token with jwt by registering an user with its email
+ * @param {string} email Email of the user
+ * @returns a JWT-compliant auth token
+ * @see https://tools.ietf.org/html/rfc7519
+ */
 export async function generateToken(email: string): Promise<string> {
     if (!EMAIL_REGEX.test(email)) throw 'The provided email has an invalid format!';
     if (User.findOne({ email })) throw 'User already registered!';
@@ -30,6 +36,10 @@ export async function generateToken(email: string): Promise<string> {
     
 }
 
+/**
+ * Determines whether the provided token is valid and registered
+ * @param token The authentication token
+ */
 export async function authToken(token: string): Promise<boolean> {
     const payload = <UserPayload>jwt.verify(token, String(process.env.JWT_SECRET));
 
