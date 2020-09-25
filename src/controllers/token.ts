@@ -3,7 +3,7 @@ import { generateToken } from '../services/auth';
 
 export async function postEmail(req: express.Request, res: express.Response, next: express.NextFunction) {
     console.log(req);
-    const { email, } = req.body;
+    const { email } = req.body;
 
     try {
         const token = await generateToken(email);
