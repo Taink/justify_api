@@ -10,7 +10,7 @@ const PORT: number = Number(process.env.PORT) || 8000;
 
 // accept both raw data and application/json as post request body
 app.use(bodyParser.json())
-app.use(bodyParser.raw())
+app.use(bodyParser.raw({type: 'text/plain'}))
 
 app.use('/api', routes);
 

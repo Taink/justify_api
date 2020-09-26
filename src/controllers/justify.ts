@@ -11,9 +11,10 @@ export async function postText(req: express.Request, res: express.Response, next
         if (!(await authToken(token))) return res.status(403).json({ msg: 'No auth token provided!' });
         if (req.headers['content-type'] != 'text/plain') return res.sendStatus(415);
 
-        // let wordsCount: number = (<string> req.body).split(' ').length;
+        const payload: Buffer = req.body;
+        // let wordsCount: number = payload.toString().split(' ').length;
 
-        res.status(200).send(justify(req.body));
+        res.status(200).send(justify(payload.toString()));
     } else {
         return res.status(403).json({ msg: 'No auth token provided!' }); // Forbidden access
     }
