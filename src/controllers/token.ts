@@ -2,7 +2,6 @@ import express from 'express';
 import { generateToken } from '../services/auth';
 
 export async function postEmail(req: express.Request, res: express.Response, next: express.NextFunction) {
-    console.log(req);
     const { email } = req.body;
 
     try {
