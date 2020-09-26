@@ -12,7 +12,7 @@ export async function postEmail(req: express.Request, res: express.Response, nex
             token,
         });
     } catch(err) {
-        res.sendStatus(400).json({
+        res.status(400).json({
             msg: err,
         });
     }
