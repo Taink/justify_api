@@ -1,6 +1,6 @@
 const MAX_LINE_LENGTH = 80;
 
-function leftJustify(words: string[], diff: number, i: number, j: number) {
+function leftJustify(words: string[], diff: number, i: number, j: number): string {
 	let res = words[i];
 
 	for (let k = i + 1; k < j; ++k) {
@@ -10,7 +10,7 @@ function leftJustify(words: string[], diff: number, i: number, j: number) {
   	return res;
 }
 
-function middleJustify(words: string[], diff: number, i: number, j: number) {
+function middleJustify(words: string[], diff: number, i: number, j: number): string {
 	let spacesNeeded = j - i - 1,
 		spaces = diff / spacesNeeded,
 		extraSpaces = diff % spacesNeeded,
