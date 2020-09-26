@@ -17,7 +17,7 @@ interface UserPayload {
  */
 export async function generateToken(email: string): Promise<string> {
     if (!EMAIL_REGEX.test(email)) throw 'The provided email has an invalid format!';
-    if (User.findOne({ email })) throw 'User already registered!';
+    if (await User.findOne({ email }).exec()) throw 'User already registered!';
 
     let user = new User({ email: email });
     await user.save();
@@ -43,5 +43,9 @@ export async function generateToken(email: string): Promise<string> {
 export async function authToken(token: string): Promise<boolean> {
     const payload = <UserPayload>jwt.verify(token, String(process.env.JWT_SECRET));
 
-    return Boolean(User.findById(<string> payload.user.id));
+    try {
+        return Boolean(await User.findById(<string> payload.user.id).exec());
+    } catch(e) {
+        return false;
+    }
 }
