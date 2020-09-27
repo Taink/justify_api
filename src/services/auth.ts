@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import jwt, { TokenExpiredError } from 'jsonwebtoken';
 import User from '../db/model/User';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -41,9 +41,8 @@ export async function generateToken(email: string): Promise<string> {
  * @param token The authentication token
  */
 export async function authToken(token: string): Promise<boolean> {
-    const payload = <UserPayload>jwt.verify(token, String(process.env.JWT_SECRET));
-
     try {
+        const payload = <UserPayload>jwt.verify(token, String(process.env.JWT_SECRET), { ignoreExpiration: true });
         return Boolean(await User.findById(<string> payload.user.id).exec());
     } catch(e) {
         return false;
