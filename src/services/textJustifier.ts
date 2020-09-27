@@ -1,6 +1,6 @@
 const MAX_LINE_LENGTH = 80;
 
-function leftJustify(words: string[], diff: number, i: number, j: number): string {
+function leftJustify(words: string[], i: number, j: number): string {
 	let res = words[i];
 
 	for (let k = i + 1; k < j; ++k) {
@@ -23,6 +23,7 @@ function middleJustify(words: string[], diff: number, i: number, j: number): str
 
 	return res;
 }
+
 /**
  * "Justifies" a text to a limit of `MAX_LINE_LENGTH` (80) characters per line
  * @param text The provided text to be justified
@@ -35,18 +36,24 @@ export function justify(text: string): string {
 	let i = 0, n = words.length, res = '';
 
 	while(i < n) {
-		let j = i + 1, lineLength = words[i].length;
+		let j = i + 1, lineLength = words[i].length, newLine: boolean = false;
 
 		while (j < n && (lineLength + words[j].length + (j - i - 1)) < MAX_LINE_LENGTH) {
+			if (/\s/.test(words[j])) {
+				newLine = true;
+				words[j] = words[j].split(/^\s/g).join('');
+				if (/\s$/.test(words[j])) ++j;
+				break;
+			}
 			lineLength += words[j++].length;
 		}
 
 		let diff = MAX_LINE_LENGTH - lineLength;
 		let numberOfWords = j - i;
-		if (numberOfWords === 1 || j >= n) res += leftJustify(words, diff, i, j)
+		if (numberOfWords === 1 || j >= n || newLine) res += leftJustify(words, i, j);
 		else res += middleJustify(words, diff, i, j);
 		res+='\n';
-		i = j;
+			i = j;
 	}
 
 	return res;
